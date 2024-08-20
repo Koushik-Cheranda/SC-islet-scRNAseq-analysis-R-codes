@@ -1,5 +1,5 @@
 # SC-islet-scRNAseq-analysis-R-codes
-Single-cell RNA sequencing (scRNAseq) analysis of mature stem cell-derived islets was carried out using the established Seurat workflow. The analysis began by processing CellRanger outputs to remove ambient RNA and doublets. The resulting filtered datasets were then normalized and variance-stabilized, followed by clustering and integration. Further downstream analyses and figure generation were conducted using the processed Seurat object.
+Single-cell RNA sequencing (scRNAseq) analysis of mature stem cell-derived islets was carried out using the established Seurat workflow. The analysis involved processing CellRanger outputs to remove ambient RNA and doublets. The resulting filtered datasets were then normalized and variance-stabilized, followed by clustering and integration. Further downstream analyses and figure generation were conducted using the processed Seurat object.
 
 R codes used in this project are in the followiung order:
 
