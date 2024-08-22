@@ -17,21 +17,12 @@ beta_heterozygous_normal <- FindMarkers(beta, assay="SCT", slot = "counts", logf
 beta_homozygous_normal <- FindMarkers(beta, assay="SCT", slot = "counts", logfc.threshold= -Inf, min.pct = 0.05, ident.1 = "Homozygous_1", ident.2 = "Normal_1", test.use = "negbinom", recorrect_umi = FALSE, latent.vars = c("Sample"))
 beta_homozygous_heterozygous <- FindMarkers(beta, assay="SCT", slot = "counts", logfc.threshold= -Inf, min.pct = 0.05, ident.1 = "Homozygous_1", ident.2 = "Heterozygous_1", test.use = "negbinom", recorrect_umi = FALSE, latent.vars = c("Sample"))
 
-beta_heterozygous_normal <- FindMarkers(beta, assay="SCT", slot = "counts", logfc.threshold= -Inf, min.pct = 0.05, ident.1 = "Heterozygous_1", ident.2 = "Normal_1", recorrect_umi = FALSE, test.use = "negbinom")
-beta_homozygous_normal <- FindMarkers(beta, assay="SCT", slot = "counts", logfc.threshold= -Inf, min.pct = 0.05, ident.1 = "Homozygous_1", ident.2 = "Normal_1", recorrect_umi = FALSE, test.use = "negbinom")
-beta_homozygous_heterozygous <- FindMarkers(beta, assay="SCT", slot = "counts", logfc.threshold= -Inf, min.pct = 0.05, ident.1 = "Homozygous_1", ident.2 = "Heterozygous_1", recorrect_umi = FALSE, test.use = "negbinom")
-
 # Differential expression analysis by zygosity within the alpha cluster
 Idents(alpha) <- "cell.zygosity"
 
 alpha_heterozygous_normal <- FindMarkers(alpha, assay="SCT", slot = "counts", logfc.threshold= -Inf, min.pct = 0.05, ident.1 = "Heterozygous_0", ident.2 = "Normal_0", test.use = "negbinom", recorrect_umi = FALSE, latent.vars = c("Sample"))
 alpha_homozygous_normal <- FindMarkers(alpha, assay="SCT", slot = "counts", logfc.threshold= -Inf, min.pct = 0.05, ident.1 = "Homozygous_0", ident.2 = "Normal_0", test.use = "negbinom", recorrect_umi = FALSE,latent.vars = c("Sample"))
 alpha_homozygous_heterozygous <- FindMarkers(alpha, assay="SCT", slot = "counts", logfc.threshold= -Inf, min.pct = 0.05, ident.1 = "Homozygous_0", ident.2 = "Heterozygous_0", test.use = "negbinom", recorrect_umi = FALSE, latent.vars = c("Sample"))
-
-alpha_heterozygous_normal <- FindMarkers(alpha, assay="SCT", slot = "counts", logfc.threshold= -Inf, min.pct = 0.05, ident.1 = "Heterozygous_0", ident.2 = "Normal_0", recorrect_umi = FALSE, test.use = "negbinom")
-alpha_homozygous_normal <- FindMarkers(alpha, assay="SCT", slot = "counts", logfc.threshold= -Inf, min.pct = 0.05, ident.1 = "Homozygous_0", ident.2 = "Normal_0", recorrect_umi = FALSE, test.use = "negbinom")
-alpha_homozygous_heterozygous <- FindMarkers(alpha, assay="SCT", slot = "counts", logfc.threshold= -Inf, min.pct = 0.05, ident.1 = "Homozygous_0", ident.2 = "Heterozygous_0", recorrect_umi = FALSE, test.use = "negbinom")
-
 
 # Differential expression analysis by differentiation state within the beta cluster
 
