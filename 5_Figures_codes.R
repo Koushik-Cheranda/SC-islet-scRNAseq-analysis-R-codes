@@ -1,6 +1,7 @@
 # Loading necessary libraries
 library(Seurat)
 library(ggplot2)
+library(gghalves)
 library(scCustomize)
 library(viridis)
 
@@ -68,4 +69,146 @@ dev.off()
 tiff("alpha_markers_violinplot.tiff", width = 8, height = 6, units = "in", res = 600)
 Stacked_VlnPlot(seurat_object = samples_merged_integrated,  features = c("GCG", "ARX","ALDH1A1","GC","TTR","DPP4","SERPINE2"), x_lab_rotate = TRUE, colors_use = c("dodgerblue4", "red1", "blue3","limegreen", "darkorange3", "dodgerblue1", "darkorchid1"),
                 plot_spacing = 0.3) + theme(axis.text=element_text(size=7, face = "bold"))
+dev.off()
+
+#Supplementary figures
+#Figure S12 [A-F], the below codes were used to generate plots for both the unfiltered and filtered data, the seurat objects were switch accordingly.
+temp_labels <- samples_merged_integrated@meta.data %>%
+  group_by(SAMPLE_ID) %>%
+  tally()
+
+#UMI counts
+tiff("UMI_count_unfiltered.tiff", width = 12, height = 8, units = "in", res = 600)
+ggplot() +
+  geom_half_violin(
+    data = samples_merged_integrated@meta.data, aes(SAMPLE_ID, nCount_RNA, fill = SAMPLE_ID),
+    side = 'l', show.legend = FALSE, trim = FALSE
+  ) +
+  geom_half_boxplot(
+    data = samples_merged_integrated@meta.data, aes(SAMPLE_ID, nCount_RNA, fill = SAMPLE_ID),
+    side = 'r', outlier.color = NA, width = 0.4, show.legend = FALSE
+  ) +
+  geom_text(
+    data = temp_labels,
+    aes(x = SAMPLE_ID, y = -Inf, label = paste0('n = ', format(n, big.mark = ',', trim = TRUE)), vjust = -1),
+    color = 'black', size = 3.5
+  ) +
+  scale_color_manual(
+    values = c("#D980FA", "#ED4C67", "#FFC312", "#B53471", "#F79F1F", "#C4E538", 
+               "#009432", "#1289A7", "#FDA7DF", "#EE5A24", "#A3CB38", "#12CBC4")
+  ) +
+  scale_fill_manual(
+    values = c("#D980FA", "#ED4C67", "#FFC312", "#B53471", "#F79F1F", "#C4E538", 
+               "#009432", "#1289A7", "#FDA7DF", "#EE5A24", "#A3CB38", "#12CBC4")
+  ) +
+  scale_y_continuous(name = 'Number of transcripts', labels = scales::comma, expand = c(0.08, 0)) +
+  theme_bw() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(size = 10, face = "bold"), 
+    axis.text.y = element_text(size = 10, face = "bold"), 
+    legend.text = element_text(size = 10, face = "bold"),
+    legend.title = element_text(size = 10, face = "bold")
+  )
+
+dev.off()
+
+#Gene counts
+tiff("gene_count_samples_RAW.tiff", width = 12, height = 8, units = "in", res = 600)
+
+ggplot() +
+  geom_half_violin(
+    data = samples_merged_integrated@meta.data, aes(SAMPLE_ID, nFeature_RNA, fill = SAMPLE_ID),
+    side = 'l', show.legend = FALSE, trim = FALSE
+  ) +
+  geom_half_boxplot(
+    data = samples_merged_integrated@meta.data, aes(SAMPLE_ID, nFeature_RNA, fill = SAMPLE_ID),
+    side = 'r', outlier.color = NA, width = 0.4, show.legend = FALSE
+  ) +
+  geom_text(
+    data = temp_labels,
+    aes(x = SAMPLE_ID, y = -Inf, label = paste0('n = ', format(n, big.mark = ',', trim = TRUE)), vjust = -1),
+    color = 'black', size = 3.5
+  ) +
+  scale_color_manual(
+    values = c("#D980FA", "#ED4C67", "#FFC312", "#B53471", "#F79F1F", "#C4E538", 
+               "#009432", "#1289A7", "#FDA7DF", "#EE5A24", "#A3CB38", "#12CBC4")
+  ) +
+  scale_fill_manual(
+    values = c("#D980FA", "#ED4C67", "#FFC312", "#B53471", "#F79F1F", "#C4E538", 
+               "#009432", "#1289A7", "#FDA7DF", "#EE5A24", "#A3CB38", "#12CBC4")
+  ) +
+  scale_y_continuous(name = 'Number of expressed genes', labels = scales::comma, expand = c(0.08, 0)) +
+  theme_bw() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(size = 10, face = "bold"), 
+    axis.text.y = element_text(size = 10, face = "bold"), 
+    legend.text = element_text(size = 10, face = "bold"),
+    legend.title = element_text(size = 10, face = "bold")
+  )
+
+dev.off()
+
+#Mitochondrial percentage
+tiff("MT_count_samples_RAW.tiff", width = 12, height = 8, units = "in", res = 600)
+
+ggplot() +
+  geom_half_violin(
+    data = samples_merged_integrated@meta.data, aes(SAMPLE_ID, mitoPercent, fill = SAMPLE_ID),
+    side = 'l', show.legend = FALSE, trim = FALSE
+  ) +
+  geom_half_boxplot(
+    data = samples_merged_integrated@meta.data, aes(SAMPLE_ID, mitoPercent, fill = SAMPLE_ID),
+    side = 'r', outlier.color = NA, width = 0.4, show.legend = FALSE
+  ) +
+  geom_text(
+    data = temp_labels,
+    aes(x = SAMPLE_ID, y = -Inf, label = paste0('n = ', format(n, big.mark = ',', trim = TRUE)), vjust = -1),
+    color = 'black', size = 3.5
+  ) +
+  scale_color_manual(
+    values = c("#D980FA", "#ED4C67", "#FFC312", "#B53471", "#F79F1F", "#C4E538", 
+               "#009432", "#1289A7", "#FDA7DF", "#EE5A24", "#A3CB38", "#12CBC4")
+  ) +
+  scale_fill_manual(
+    values = c("#D980FA", "#ED4C67", "#FFC312", "#B53471", "#F79F1F", "#C4E538", 
+               "#009432", "#1289A7", "#FDA7DF", "#EE5A24", "#A3CB38", "#12CBC4")
+  ) +
+  scale_y_continuous(name = 'Mitochondrial percentage', labels = scales::comma, expand = c(0.08, 0)) +
+  theme_bw() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(size = 10, face = "bold"), 
+    axis.text.y = element_text(size = 10, face = "bold"), 
+    legend.text = element_text(size = 10, face = "bold"),
+    legend.title = element_text(size = 10, face = "bold")
+  )
+
+dev.off()
+
+#Figure S13B
+Idents(samples_merged_integrated) <- "annotation"
+alpha_beta <- subset(samples_merged_integrated, ident = c("SC-α", "SC-β"))
+tiff("alpha_beta_cluster.tiff", width = 12, height = 8, units = "in", res = 600)
+DimPlot(alpha_beta, reduction = "umap", label = F, pt.size = 0.4)
+dev.off()
+
+#Figure S13C
+#Cell IDs of polyhormonal cells were extracted from the seurta objects and added to the metadata column. 
+polyhormonal_cell_IDs <- readLines("polyhormone_cell_info.txt")
+
+if (length(polyhormonal_cell_IDs) == ncol(alpha_beta)) {
+  alpha_beta@meta.data$CellType <- polyhormonal_cell_IDs
+  print("CellType column added successfully to metadata.")
+} else {
+  stop("The number of cell types in the file does not match the number of cells in the Seurat object.")
+}
+
+Idents(alpha_beta) <- "CellType"
+tiff("polyhormonal.tiff", width = 12, height = 8, units = "in", res = 600)
+DimPlot(alpha_beta, reduction = "umap", label = F, pt.size = 0.4, cols = c("gray", "red1"))
 dev.off()
