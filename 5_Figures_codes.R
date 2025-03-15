@@ -10,13 +10,13 @@ library(viridis)
 my_levels <- c("SC-α", "SC-β", "SC-δ", "SC-EC", "SC-ductal",  "DPP4⁺/ALDH1A1⁺", "Proliferating cells")
 samples_merged_integrated@meta.data$annotation <- factor(x = samples_merged_integrated@meta.data$annotation, levels = my_levels)
 
-# Figure 7A: Generate UMAP plot with cells color-coded by cluster to show the seven distinct cell types
+# Figure 6A: Generate UMAP plot with cells color-coded by cluster to show the seven distinct cell types
 Idents(samples_merged_integrated) <- "annotation"
 tiff("wholedata_clusters0.2res.tiff", width = 15, height = 10, units = "in", res = 600)
 DimPlot(samples_merged_integrated, reduction = "umap", label = F, pt.size = 0.4, cols = c("dodgerblue4", "red1", "blue3","limegreen", "darkorange3", "dodgerblue1", "darkorchid1"))
 dev.off()
 
-# Figure 7B: Feature plots displaying the expression levels of key marker genes (log1P SCT normalized counts)
+# Figure 6B: Feature plots displaying the expression levels of key marker genes (log1P SCT normalized counts)
 
 tiff("featureplot_markers.tiff", width = 10, height = 8, units = "in", res = 600)
 FeaturePlot(samples_merged_integrated, 
@@ -32,7 +32,7 @@ FeaturePlot(samples_merged_integrated,
                  )
 dev.off()
 
-# Figure 7C: Heatmap showing scaled expression of top differentially expressed genes for each cluster compared to others
+# Figure 6C: Heatmap showing scaled expression of top differentially expressed genes for each cluster compared to others
 
 heatmap_genes <- c("INS", "IAPP", "ERO1B", "DLK1", "ACVR1C", "PCSK1", "EEF1A2", "PCDH7", "HADH", "NEFM", "GCG", 
                    "IGFBP2", "TTR", "SERPINA1", "SPINK1", "AGT", "ARX", "SERPINI1", "GLS", "CLU", "DPP4", "GC", 
@@ -59,7 +59,7 @@ DoHeatmap(
 ) + theme(axis.text = element_text(size = 7, face = "bold"))
 dev.off()
 
-# Figures 7F-G: Violin plots of core beta and alpha cell markers (log1P SCT normalized counts)
+# Figures 6F-G: Violin plots of core beta and alpha cell markers (log1P SCT normalized counts)
 
 tiff("beta_markers_violinplot.tiff", width = 8, height = 6, units = "in", res = 600)
 Stacked_VlnPlot(seurat_object = samples_merged_integrated, features = c("INS", "IAPP","DLK1","HADH","PCSK1","NKX6-1","PDX1"), x_lab_rotate = TRUE, colors_use = c("dodgerblue4", "red1", "blue3","limegreen", "darkorange3", "dodgerblue1", "darkorchid1"),
