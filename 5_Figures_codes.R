@@ -1,9 +1,8 @@
 # Loading necessary libraries
 library(Seurat)
 library(ggplot2)
-library(gghalves)
+library(dplyr)
 library(scCustomize)
-
 
 # Load the processed Seurat object and ensure consistent cluster annotation ordering across all figures
 
@@ -22,7 +21,7 @@ DimPlot(samples_merged_integrated, reduction = "umap", label = FALSE, pt.size = 
 dev.off()
 
 # Figure 6B: Feature plots displaying the expression levels of key marker genes (log1P SCT normalized counts)
-tiff("featureplot_markers.tiff", width = 10, height = 8, units = "in", res = 600)
+tiff("featureplot_markers.tiff", width = 10, height = 8, units = "in", res = 1200)
 FeaturePlot(samples_merged_integrated, 
             reduction = "umap", 
             features = c("INS", "GCG", "TPH1", "KRT19", "SST", "MKI67"), 
@@ -36,7 +35,7 @@ FeaturePlot(samples_merged_integrated,
 dev.off()
 
 my_levels <- c("SC-beta", "SC-alpha", "DPP4⁺/ALDH1A1⁺",  "SC-EC", "SC-delta",  "SC-ductal",  "Proliferating cells")
-samples_merged_integrated@meta.data$ann <- factor(x = samples_merged_integrated@meta.data$ann, levels = my_levels)
+samples_merged_integrated@meta.data$annotation <- factor(x = samples_merged_integrated@meta.data$annotation, levels = my_levels)
 Idents(samples_merged_integrated) <- "annotation"
 
 # Figure 6C: Heatmap showing scaled expression of top differentially expressed genes for each cluster compared to other clusters.
@@ -47,7 +46,7 @@ heatmap_genes <- c("INS", "IAPP", "ERO1B", "DLK1", "ACVR1C", "PCSK1", "EEF1A2", 
                    "HHEX", "SFRP1", "VTN", "CRH", "APOA1", "ST3GAL1", "OLFML3", "COL3A1", "KRT19", "HIST1H4C", 
                    "CENPF", "TOP2A", "TUBA1B", "RRM2", "MKI67", "H2AFZ", "HMGB2", "PTTG1", "TUBB")
 
-tiff("Heatmap_wholedata.tiff", height = 6, width = 5, units = "in", res = 600)
+tiff("Heatmap_wholedata.tiff", height = 6, width = 5, units = "in", res = 1200)
 
 DoHeatmap(samples_merged_integrated,
           features = heatmap_genes, 
