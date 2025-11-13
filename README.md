@@ -10,4 +10,5 @@ R codes used in this project are in the followiung order:
 5_Figures_codes
 
 Publication: Modelling the effects of human SUR1 R1420H variation on insulin secretory function using isogenic iPSC.derived pancreatic islets
+
 Authors: Anup K. Nair · Katiya Barkho · Koushik Ponnanna Cheranda · Michael Traurig · Jeffrey R. Sutherland · Divya Anup · Clifton Bogardus · Leslie J. Baier
