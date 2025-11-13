@@ -1,11 +1,11 @@
 # Subsetting SC-α (alpha cells) and SC-β (beta cells) clusters and removing polyhormonal cells
 
 Idents(samples_merged_integrated) <- "integrated_snn_res.0.2"
-beta <- subset(samples_merged_integrated, GCG < 4.5, slot = "data", ident = "SC-β")
-beta_polyhormone <- subset(samples_merged_integrated, GCG > 4.5, slot = "data", ident = "SC-β")
+beta <- subset(samples_merged_integrated, GCG < 4.5, slot = "data", ident = "SC-beta")
+beta_polyhormone <- subset(samples_merged_integrated, GCG > 4.5, slot = "data", ident = "SC-beta")
 
-alpha <- subset(samples_merged_integrated, INS < 5.4, slot = "data", ident = "SC-α")
-alpha_polyhormone <- subset(samples_merged_integrated, INS > 5.4, slot = "data", ident = "SC-α")
+alpha <- subset(samples_merged_integrated, INS < 5.4, slot = "data", ident = "SC-alpha")
+alpha_polyhormone <- subset(samples_merged_integrated, INS > 5.4, slot = "data", ident = "SC-alpha")
 
 # Differential expression analysis on the SCT assay after removing polyhormonal cells
 # Using the negative binomial test with "Sample" as a latent variable
@@ -61,3 +61,4 @@ alpha_homozygous_heterozygous_differentiation_3 <- FindMarkers(alpha, assay="SCT
 alpha_heterozygous_normal_differentiation_4 <- FindMarkers(alpha, assay="SCT", slot = "counts", min.pct = 0.05, logfc.threshold= -Inf, ident.1 = "RH2RD3_0", ident.2 = "RR2RD3_0", recorrect_umi = FALSE, test.use = "negbinom")
 alpha_homozygous_normal_differentiation_4 <- FindMarkers(alpha, assay="SCT", slot = "counts", min.pct = 0.05, logfc.threshold= -Inf, ident.1 = "HH2RD3_0", ident.2 = "RR2RD3_0", recorrect_umi = FALSE, test.use = "negbinom")
 alpha_homozygous_heterozygous_differentiation_4 <- FindMarkers(alpha, assay="SCT", slot = "counts", min.pct = 0.05, logfc.threshold= -Inf, ident.1 = "HH2RD3_0", ident.2 = "RH2RD3_0", recorrect_umi = FALSE, test.use = "negbinom")
+
