@@ -63,15 +63,16 @@ cluster6_RES0.2 <- FindMarkers(samples_merged_integrated, assay="SCT", slot = "c
 
 # Annotate clusters with cell type labels based on identified marker genes
 samples_merged_integrated$annotation <- NA
-samples_merged_integrated$annotation[samples_merged_integrated$seurat_clusters == "0"] <- "SC-α"
-samples_merged_integrated$annotation[samples_merged_integrated$seurat_clusters == "1"] <- "SC-β"
+samples_merged_integrated$annotation[samples_merged_integrated$seurat_clusters == "0"] <- "SC-alpha"
+samples_merged_integrated$annotation[samples_merged_integrated$seurat_clusters == "1"] <- "SC-beta"
 samples_merged_integrated$annotation[samples_merged_integrated$seurat_clusters == "2"] <- "SC-EC"
 samples_merged_integrated$annotation[samples_merged_integrated$seurat_clusters == "3"] <- "DPP4⁺/ALDH1A1⁺"
 samples_merged_integrated$annotation[samples_merged_integrated$seurat_clusters == "4"] <- "SC-ductal"
 samples_merged_integrated$annotation[samples_merged_integrated$seurat_clusters == "5"] <- "Proliferating cells"
-samples_merged_integrated$annotation[samples_merged_integrated$seurat_clusters == "6"] <- "SC-δ"
+samples_merged_integrated$annotation[samples_merged_integrated$seurat_clusters == "6"] <- "SC-delta"
 
 # Save the final integrated and annotated object as an RDS file
 saveRDS(samples_merged_integrated, file = "samples_merged_integrated.rds")
+
 
 
